@@ -31,6 +31,31 @@ export const CONAN = {
     off: "Off-Hand"
   },
 
+  // Weapon craftsmanship quality options.
+  weaponQuality: {
+    poor: "Poor",
+    average: "Average",
+    superior: "Superior",
+    masterwork: "Masterwork"
+  },
+
+  // Weapon material options used for durability and rules notes.
+  weaponMaterials: {
+    primitive: "Primitive",
+    bronze: "Bronze",
+    iron: "Iron",
+    steel: "Steel"
+  },
+
+  // Sorcery compendium item categories.
+  sorceryItemTypes: {
+    style: "Style",
+    spell: "Spell",
+    ritual: "Ritual",
+    component: "Component",
+    sacrifice: "Power Source"
+  },
+
   // Skill definitions drive actor schema fields and the skills tab display.
   skills: {
     acrobatics: { label: "Acrobatics", ability: "dex", armorCheck: true, trainedOnly: false },

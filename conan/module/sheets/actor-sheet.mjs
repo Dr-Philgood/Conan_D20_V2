@@ -55,7 +55,14 @@ export class ConanActorSheet extends ActorSheet {
 
     // Split embedded items into inventory sections for the inventory tab.
     const items = {
-      weapons: this.actor.items.filter((item) => item.type === "weapon"),
+      weapons: this.actor.items
+        .filter((item) => item.type === "weapon")
+        .map((item) => ({
+          id: item.id,
+          name: item.name,
+          system: item.system,
+          attackSequence: this.actor.getWeaponAttackSequence(item.id)
+        })),
       armor: this.actor.items.filter((item) => item.type === "armor"),
       gear: this.actor.items.filter((item) => item.type === "gear")
     };
@@ -240,6 +247,12 @@ export class ConanActorSheet extends ActorSheet {
       event.preventDefault();
       const itemId = event.currentTarget.closest("[data-item-id]")?.dataset.itemId;
       this.actor.rollWeaponAttack(itemId);
+    });
+
+    html.find(".weapon-full-attack").on("click", (event) => {
+      event.preventDefault();
+      const itemId = event.currentTarget.closest("[data-item-id]")?.dataset.itemId;
+      this.actor.rollWeaponFullAttack(itemId);
     });
 
     html.find(".weapon-damage").on("click", (event) => {

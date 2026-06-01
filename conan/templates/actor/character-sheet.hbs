@@ -157,6 +157,30 @@
       </section>
 
       <section class="panel">
+        <h2>Combat Feats</h2>
+        <div class="grid four feat-toggle-grid">
+          <label>
+            <input type="checkbox" name="system.combat.featToggles.powerAttack.active" {{#if system.combat.featToggles.powerAttack.active}}checked{{/if}}>
+            Power Attack
+          </label>
+          <label>Attack Penalty / Damage Bonus
+            <input type="number" name="system.combat.featToggles.powerAttack.value" value="{{system.combat.featToggles.powerAttack.value}}" min="0">
+          </label>
+          <label>
+            <input type="checkbox" name="system.combat.featToggles.pointBlankShot.active" {{#if system.combat.featToggles.pointBlankShot.active}}checked{{/if}}>
+            Point Blank Shot
+          </label>
+          <label>
+            <input type="checkbox" name="system.combat.featToggles.rapidShot.active" {{#if system.combat.featToggles.rapidShot.active}}checked{{/if}}>
+            Rapid Shot
+          </label>
+          <label>Toughness Ranks
+            <input type="number" name="system.combat.featToggles.toughness.ranks" value="{{system.combat.featToggles.toughness.ranks}}" min="0" max="10">
+          </label>
+        </div>
+      </section>
+
+      <section class="panel">
         <div class="panel-header">
           <h2>Combat Maneuvers</h2>
           <button type="button" class="add-tracker-entry" data-path="system.combat.maneuvers">Add Maneuver</button>
@@ -189,7 +213,11 @@
             <span>{{this.system.damageType}}</span>
             <span>{{this.system.qualities}}</span>
             <span>{{#if this.system.equipped}}Equipped{{else}}Stored{{/if}}</span>
-            <button type="button" class="weapon-attack">Attack</button>
+            <div class="iterative-attack-buttons">
+              <span class="attack-sequence-label">{{#each this.attackSequence}}{{#if @first}}{{else}} / {{/if}}{{#if this.rapid}}Rapid {{/if}}{{this.label}}{{/each}}</span>
+              <button type="button" class="weapon-attack">Single Attack</button>
+              <button type="button" class="weapon-full-attack">Full Attack</button>
+            </div>
             <button type="button" class="weapon-damage">Damage</button>
             <button type="button" class="item-edit">Edit</button>
             <button type="button" class="item-delete">Delete</button>

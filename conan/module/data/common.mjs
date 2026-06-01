@@ -289,6 +289,21 @@ export function createActorSchema() {
         total: new fields.NumberField({ required: true, integer: true, initial: 0 })
       }),
       armorCheckPenalty: new fields.NumberField({ required: true, integer: true, initial: 0 }),
+      featToggles: new fields.SchemaField({
+        powerAttack: new fields.SchemaField({
+          active: new fields.BooleanField({ required: true, initial: false }),
+          value: new fields.NumberField({ required: true, integer: true, min: 0, initial: 0 })
+        }),
+        pointBlankShot: new fields.SchemaField({
+          active: new fields.BooleanField({ required: true, initial: false })
+        }),
+        rapidShot: new fields.SchemaField({
+          active: new fields.BooleanField({ required: true, initial: false })
+        }),
+        toughness: new fields.SchemaField({
+          ranks: new fields.NumberField({ required: true, integer: true, min: 0, max: 10, initial: 0 })
+        })
+      }),
       attack: new fields.SchemaField({
         melee: new fields.SchemaField({
           base: new fields.NumberField({ required: true, integer: true, initial: 0 }),

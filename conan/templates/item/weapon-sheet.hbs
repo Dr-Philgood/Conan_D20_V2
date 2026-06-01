@@ -45,6 +45,38 @@
       </label>
 
       <label>
+        Quality
+        <select name="system.quality">
+          {{#each config.weaponQuality}}
+            <option value="{{@key}}" {{#if (eq @key ../system.quality)}}selected{{/if}}>
+              {{this}}
+            </option>
+          {{/each}}
+        </select>
+      </label>
+
+      <label>
+        Material
+        <select name="system.material">
+          {{#each config.weaponMaterials}}
+            <option value="{{@key}}" {{#if (eq @key ../system.material)}}selected{{/if}}>
+              {{this}}
+            </option>
+          {{/each}}
+        </select>
+      </label>
+
+      <label>
+        Hit Points
+        <input type="number" name="system.hitpoints" value="{{system.hitpoints}}" min="0">
+      </label>
+
+      <label>
+        Hardness
+        <input type="number" name="system.hardness" value="{{system.hardness}}" min="0">
+      </label>
+
+      <label>
         Handedness
         <select name="system.handedness">
           {{#each config.handedness}}

@@ -97,6 +97,10 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.conan-sheet .grid.four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .conan-sheet label,
 .conan-item-sheet label {
   display: flex;
@@ -383,6 +387,27 @@
     repeat(4, minmax(72px, auto));
 }
 
+.conan-sheet .iterative-attack-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.conan-sheet .attack-sequence-label {
+  flex-basis: 100%;
+  color: #f0e0b0;
+  font-size: 0.85rem;
+}
+
+.conan-sheet .iterative-attack-buttons button {
+  padding: 3px 6px;
+  white-space: nowrap;
+}
+
+.conan-sheet .feat-toggle-grid label {
+  justify-content: end;
+}
+
 .conan-sheet .armor-row {
   grid-template-columns:
     minmax(160px, 2fr)
@@ -474,6 +499,7 @@
   .conan-sheet .movement-grid,
   .conan-sheet .grid.two,
   .conan-sheet .grid.three,
+  .conan-sheet .grid.four,
   .conan-sheet .skill-row,
   .conan-sheet .weapon-row,
   .conan-sheet .armor-row,

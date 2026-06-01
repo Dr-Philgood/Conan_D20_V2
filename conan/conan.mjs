@@ -5,10 +5,12 @@ import { ConanNpcData } from "./module/data/actor/npc.mjs";
 import { ConanWeaponData } from "./module/data/item/weapon.mjs";
 import { ConanArmorData } from "./module/data/item/armor.mjs";
 import { ConanGearData } from "./module/data/item/gear.mjs";
+import { ConanSorceryData } from "./module/data/item/sorcery.mjs";
 import { ConanActor } from "./module/documents/actor.mjs";
 import { ConanItem } from "./module/documents/item.mjs";
 import { ConanActorSheet } from "./module/sheets/actor-sheet.mjs";
 import { ConanItemSheet } from "./module/sheets/item-sheet.mjs";
+import { registerSorceryPackImporter } from "./module/packs/sorcery-importer.mjs";
 
 Hooks.once("init", async () => {
   console.log("Conan | Initializing system");
@@ -30,7 +32,8 @@ Hooks.once("init", async () => {
   CONFIG.Item.dataModels = {
     weapon: ConanWeaponData,
     armor: ConanArmorData,
-    gear: ConanGearData
+    gear: ConanGearData,
+    sorcery: ConanSorceryData
   };
 
   // Tell Foundry which actor values can be bound to token resource bars.
@@ -76,7 +79,9 @@ Hooks.once("init", async () => {
 
   Items.registerSheet("conan", ConanItemSheet, {
     makeDefault: true,
-    types: ["weapon", "armor", "gear"],
+    types: ["weapon", "armor", "gear", "sorcery"],
     label: "CONAN.SystemName"
   });
+
+  registerSorceryPackImporter();
 });

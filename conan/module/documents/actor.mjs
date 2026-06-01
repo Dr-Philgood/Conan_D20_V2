@@ -22,6 +22,17 @@ const PERMANENT_DAMAGE_RESULTS = [
   { min: 20, max: Infinity, key: "headTrauma", label: "Head Trauma" }
 ];
 
+function getIterativeBabBonuses(baseAttackBonus) {
+  const bab = clampNumber(baseAttackBonus);
+  const attackCount = Math.max(1, Math.min(4, Math.floor((bab - 1) / 5) + 1));
+  return Array.from({ length: attackCount }, (_value, index) => bab - (index * 5));
+}
+
+function formatSignedBonus(value) {
+  const bonus = clampNumber(value);
+  return bonus >= 0 ? `+${bonus}` : `${bonus}`;
+}
+
 export class ConanActor extends Actor {
   prepareDerivedData() {
     super.prepareDerivedData();
@@ -48,7 +59,8 @@ export class ConanActor extends Actor {
     const classTotals = this.getClassTotals();
     const hpRolled = system.classes.reduce((sum, row) => sum + clampNumber(row.hpRolled), 0);
     const hpLevel = Math.max(clampNumber(system.details.level), clampNumber(classTotals.level));
-    system.combat.hp.max = Math.max(0, hpRolled + (clampNumber(system.abilities.con.mod) * hpLevel));
+    const toughnessHp = Math.min(10, Math.max(0, clampNumber(system.combat.featToggles?.toughness?.ranks)));
+    system.combat.hp.max = Math.max(0, hpRolled + (clampNumber(system.abilities.con.mod) * hpLevel) + toughnessHp);
 
     // Base save and attack values come from the class progression table.
     if (system.saves?.fort) system.saves.fort.base = clampNumber(classTotals.fort);
@@ -143,14 +155,17 @@ export class ConanActor extends Actor {
       clampNumber(system.combat.attack.melee.misc) +
       clampNumber(system.abilities.str.mod) +
       clampNumber(injuryMods.allAttacks) +
-      clampNumber(injuryMods.meleeAttack);
+      clampNumber(injuryMods.meleeAttack) -
+      (system.combat.featToggles?.powerAttack?.active ? clampNumber(system.combat.featToggles.powerAttack.value) : 0);
 
     system.combat.attack.ranged.total =
       clampNumber(system.combat.attack.ranged.base) +
       clampNumber(system.combat.attack.ranged.misc) +
       clampNumber(system.abilities.dex.mod) +
       clampNumber(injuryMods.allAttacks) +
-      clampNumber(injuryMods.rangedAttack);
+      clampNumber(injuryMods.rangedAttack) +
+      (system.combat.featToggles?.pointBlankShot?.active ? 1 : 0) -
+      (system.combat.featToggles?.rapidShot?.active ? 2 : 0);
 
     // Skill totals combine ranks, misc, ability, armor penalty, and injury modifiers.
     for (const [key, skill] of Object.entries(system.skills)) {
@@ -424,32 +439,111 @@ export class ConanActor extends Actor {
     });
   }
 
-  async rollWeaponAttack(itemId) {
-    // Roll an embedded weapon attack using weapon type, finesse, and attack bonus.
+  getWeaponAttackSequence(itemId) {
     const item = this.items.get(itemId);
-    if (!item || item.type !== "weapon") return null;
+    if (!item || item.type !== "weapon") return [];
 
+    const parts = this._getWeaponAttackParts(item);
+    const baseAttacks = getIterativeBabBonuses(parts.baseBab);
+    const attacks = parts.rapidShot ? [baseAttacks[0], ...baseAttacks] : baseAttacks;
+
+    return attacks.map((bab, index) => {
+      const total =
+        bab +
+        parts.misc +
+        parts.abilityMod +
+        parts.itemBonus +
+        parts.injuryBonus +
+        parts.featAttackBonus +
+        parts.rapidShotPenalty;
+      return {
+        index,
+        bab,
+        total,
+        label: formatSignedBonus(total),
+        rapid: parts.rapidShot && index === 0
+      };
+    });
+  }
+
+  _getWeaponAttackParts(item) {
     const isRangedAttack = item.system.attackType === "ranged" || item.system.attackType === "thrown";
+    const isMeleeAttack = item.system.attackType === "melee";
+    const injuryMods = this._getInjuryModifiers();
+    const featToggles = this.system.combat.featToggles ?? {};
+    const powerAttackValue = featToggles.powerAttack?.active && isMeleeAttack
+      ? clampNumber(featToggles.powerAttack.value)
+      : 0;
+    const pointBlankShotBonus = featToggles.pointBlankShot?.active && isRangedAttack ? 1 : 0;
+    const rapidShotPenalty = featToggles.rapidShot?.active && isRangedAttack ? -2 : 0;
 
-    const attackAbilityMod =
+    const abilityModValue =
       item.system.finesse && item.system.attackType === "melee"
         ? clampNumber(this.system.abilities.dex.mod)
         : isRangedAttack
           ? clampNumber(this.system.abilities.dex.mod)
           : clampNumber(this.system.abilities.str.mod);
 
-    const baseAttack =
-      isRangedAttack
-        ? clampNumber(this.system.combat.attack.ranged.base) + clampNumber(this.system.combat.attack.ranged.misc)
-        : clampNumber(this.system.combat.attack.melee.base) + clampNumber(this.system.combat.attack.melee.misc);
+    const attackData = isRangedAttack
+      ? this.system.combat.attack.ranged
+      : this.system.combat.attack.melee;
 
-    const total = baseAttack + attackAbilityMod + clampNumber(item.system.attackBonus);
+    const injuryBonus =
+      clampNumber(injuryMods.allAttacks) +
+      (isRangedAttack ? clampNumber(injuryMods.rangedAttack) : clampNumber(injuryMods.meleeAttack));
+
+    return {
+      isRangedAttack,
+      baseBab: clampNumber(attackData.base),
+      misc: clampNumber(attackData.misc),
+      abilityMod: abilityModValue,
+      itemBonus: clampNumber(item.system.attackBonus),
+      injuryBonus,
+      featAttackBonus: pointBlankShotBonus - powerAttackValue,
+      rapidShotPenalty,
+      powerAttackValue,
+      pointBlankShotBonus,
+      rapidShot: featToggles.rapidShot?.active && isRangedAttack
+    };
+  }
+
+  async rollWeaponAttack(itemId, attackIndex = 0, { fullAttack = false, showAttackNumber = false } = {}) {
+    // Roll an embedded weapon attack using weapon type, finesse, and attack bonus.
+    const item = this.items.get(itemId);
+    if (!item || item.type !== "weapon") return null;
+
+    const parts = this._getWeaponAttackParts(item);
+    const attacks = getIterativeBabBonuses(parts.baseBab);
+    const sequence = fullAttack && parts.rapidShot ? [attacks[0], ...attacks] : attacks;
+    const selectedIndex = Math.max(0, Math.min(sequence.length - 1, clampNumber(attackIndex)));
+    const iterativeBab = sequence[selectedIndex];
+    const total =
+      iterativeBab +
+      parts.misc +
+      parts.abilityMod +
+      parts.itemBonus +
+      parts.injuryBonus +
+      parts.featAttackBonus +
+      (fullAttack ? parts.rapidShotPenalty : 0);
+    const attackLabel = showAttackNumber && sequence.length > 1 ? ` #${selectedIndex + 1}` : "";
+    const featLabels = [];
+    if (parts.powerAttackValue) featLabels.push(`Power Attack -${parts.powerAttackValue}`);
+    if (parts.pointBlankShotBonus) featLabels.push("Point Blank Shot");
+    if (fullAttack && parts.rapidShot) featLabels.push("Rapid Shot");
+    const featText = featLabels.length ? `, ${featLabels.join(", ")}` : "";
 
     return rollFormula({
       actor: this,
       formula: `1d20 + ${total}`,
-      flavor: `${item.name} Attack${item.system.armorPiercing ? ` (AP ${item.system.armorPiercing})` : ""}`
+      flavor: `${item.name} Attack${attackLabel}${item.system.armorPiercing ? ` (AP ${item.system.armorPiercing})` : ""}${featText}`
     });
+  }
+
+  async rollWeaponFullAttack(itemId) {
+    const sequence = this.getWeaponAttackSequence(itemId);
+    for (const attack of sequence) {
+      await this.rollWeaponAttack(itemId, attack.index, { fullAttack: true, showAttackNumber: true });
+    }
   }
 
   async rollWeaponDamage(itemId) {
@@ -468,14 +562,24 @@ export class ConanActor extends Actor {
       bonus = strMod;
     }
 
-    const sign = bonus >= 0 ? "+" : "-";
-    const absBonus = Math.abs(bonus);
-    const formula = absBonus ? `${item.system.damage} ${sign} ${absBonus}` : item.system.damage;
+    const featToggles = this.system.combat.featToggles ?? {};
+    const isRangedAttack = item.system.attackType === "ranged" || item.system.attackType === "thrown";
+    const powerAttackValue = featToggles.powerAttack?.active && item.system.attackType === "melee"
+      ? clampNumber(featToggles.powerAttack.value)
+      : 0;
+    const powerAttackDamage = item.system.handedness === "two" ? powerAttackValue * 2 : powerAttackValue;
+    const pointBlankShotDamage = featToggles.pointBlankShot?.active && isRangedAttack ? 1 : 0;
+    const totalBonus = bonus + powerAttackDamage + pointBlankShotDamage;
+    const formula = totalBonus ? `${item.system.damage} ${formatSignedBonus(totalBonus)}` : item.system.damage;
+    const featLabels = [];
+    if (powerAttackDamage) featLabels.push(`Power Attack +${powerAttackDamage}`);
+    if (pointBlankShotDamage) featLabels.push("Point Blank Shot +1");
+    const featText = featLabels.length ? `, ${featLabels.join(", ")}` : "";
 
     return rollFormula({
       actor: this,
       formula,
-      flavor: `${item.name} Damage${item.system.damageType ? ` (${item.system.damageType})` : ""}`
+      flavor: `${item.name} Damage${item.system.damageType ? ` (${item.system.damageType})` : ""}${featText}`
     });
   }
 

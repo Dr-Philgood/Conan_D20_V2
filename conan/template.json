@@ -769,7 +769,8 @@
     "types": [
       "weapon",
       "armor",
-      "gear"
+      "gear",
+      "sorcery"
     ],
     "weapon": {
       "description": "",
@@ -778,8 +779,13 @@
       "damage": "1d6",
       "damageType": "",
       "qualities": "",
+      "quality": "average",
+      "material": "iron",
+      "hitpoints": 0,
+      "hardness": 0,
       "handedness": "one",
       "rangeIncrement": 0,
+      "armorPiercing": 0,
       "finesse": false,
       "attackBonus": 0,
       "equipped": true,
@@ -801,6 +807,21 @@
       "weight": 0,
       "cost": "",
       "equipped": false
+    },
+    "sorcery": {
+      "description": "",
+      "category": "spell",
+      "style": "",
+      "source": "",
+      "ppCost": "",
+      "castingTime": "",
+      "range": "",
+      "duration": "",
+      "components": "",
+      "difficulty": "",
+      "prepared": false,
+      "requirements": "",
+      "notes": ""
     }
   }
 }
