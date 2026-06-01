@@ -1,0 +1,806 @@
+{
+  "Actor": {
+    "types": [
+      "character",
+      "npc"
+    ],
+    "character": {
+      "details": {
+        "level": 1,
+        "xp": 0,
+        "race": "",
+        "archetype": "",
+        "biography": ""
+      },
+      "abilities": {
+        "str": {
+          "value": 10,
+          "mod": 0
+        },
+        "dex": {
+          "value": 10,
+          "mod": 0
+        },
+        "con": {
+          "value": 10,
+          "mod": 0
+        },
+        "int": {
+          "value": 10,
+          "mod": 0
+        },
+        "wis": {
+          "value": 10,
+          "mod": 0
+        },
+        "cha": {
+          "value": 10,
+          "mod": 0
+        }
+      },
+      "saves": {
+        "fort": {
+          "base": 0,
+          "ability": "con",
+          "misc": 0,
+          "total": 0
+        },
+        "ref": {
+          "base": 0,
+          "ability": "dex",
+          "misc": 0,
+          "total": 0
+        },
+        "will": {
+          "base": 0,
+          "ability": "wis",
+          "misc": 0,
+          "total": 0
+        }
+      },
+      "combat": {
+        "hp": {
+          "value": 10,
+          "max": 10
+        },
+        "initiative": {
+          "misc": 0,
+          "total": 0
+        },
+        "dodge": {
+          "base": 10,
+          "misc": 0,
+          "total": 10
+        },
+        "parry": {
+          "base": 10,
+          "misc": 0,
+          "total": 10
+        },
+        "damageReduction": {
+          "armor": 0,
+          "misc": 0,
+          "total": 0
+        },
+        "armorCheckPenalty": 0,
+        "attack": {
+          "melee": {
+            "base": 0,
+            "misc": 0,
+            "total": 0
+          },
+          "ranged": {
+            "base": 0,
+            "misc": 0,
+            "total": 0
+          }
+        },
+        "threshold": {
+          "total": 0
+        }
+      },
+      "optionalRules": {
+        "permanentDamage": false
+      },
+      "injuries": [],
+      "customSkills": {
+        "professions": [],
+        "crafts": [],
+        "performs": []
+      },
+      "skills": {
+        "acrobatics": {
+          "keyAbility": "dex",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": true,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "appraise": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "bluff": {
+          "keyAbility": "cha",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "challenge": {
+          "keyAbility": "cha",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "climb": {
+          "keyAbility": "str",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": true,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "concentration": {
+          "keyAbility": "con",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "decipherScript": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "diplomacy": {
+          "keyAbility": "cha",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "disableDevice": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "disguise": {
+          "keyAbility": "cha",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "forgery": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "gatherInformation": {
+          "keyAbility": "cha",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "handleAnimal": {
+          "keyAbility": "cha",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "heal": {
+          "keyAbility": "wis",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "intimidate": {
+          "keyAbility": "cha",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "knowledgeArcana": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "knowledgeGeography": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "knowledgeHistory": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "knowledgeLocal": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "knowledgeNobility": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "knowledgeReligion": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "knowledgeRumours": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "knowledgeTactics": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "perception": {
+          "keyAbility": "wis",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "ride": {
+          "keyAbility": "dex",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "search": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "senseMotive": {
+          "keyAbility": "wis",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "sharpen": {
+          "keyAbility": "wis",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "sleightOfHand": {
+          "keyAbility": "dex",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": true,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "stealth": {
+          "keyAbility": "dex",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": true,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "survival": {
+          "keyAbility": "wis",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "swim": {
+          "keyAbility": "str",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "useRope": {
+          "keyAbility": "dex",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        }
+      },
+      "classes": [
+        {
+          "classKey": "barbarian",
+          "level": 1,
+          "hpRolled": 0,
+          "favored": false,
+          "notes": ""
+        }
+      ]
+    },
+    "npc": {
+      "details": {
+        "level": 1,
+        "xp": 0,
+        "race": "",
+        "archetype": "",
+        "biography": ""
+      },
+      "abilities": {
+        "str": {
+          "value": 10,
+          "mod": 0
+        },
+        "dex": {
+          "value": 10,
+          "mod": 0
+        },
+        "con": {
+          "value": 10,
+          "mod": 0
+        },
+        "int": {
+          "value": 10,
+          "mod": 0
+        },
+        "wis": {
+          "value": 10,
+          "mod": 0
+        },
+        "cha": {
+          "value": 10,
+          "mod": 0
+        }
+      },
+      "saves": {
+        "fort": {
+          "base": 0,
+          "ability": "con",
+          "misc": 0,
+          "total": 0
+        },
+        "ref": {
+          "base": 0,
+          "ability": "dex",
+          "misc": 0,
+          "total": 0
+        },
+        "will": {
+          "base": 0,
+          "ability": "wis",
+          "misc": 0,
+          "total": 0
+        }
+      },
+      "combat": {
+        "hp": {
+          "value": 10,
+          "max": 10
+        },
+        "initiative": {
+          "misc": 0,
+          "total": 0
+        },
+        "dodge": {
+          "base": 10,
+          "misc": 0,
+          "total": 10
+        },
+        "parry": {
+          "base": 10,
+          "misc": 0,
+          "total": 10
+        },
+        "damageReduction": {
+          "armor": 0,
+          "misc": 0,
+          "total": 0
+        },
+        "armorCheckPenalty": 0,
+        "attack": {
+          "melee": {
+            "base": 0,
+            "misc": 0,
+            "total": 0
+          },
+          "ranged": {
+            "base": 0,
+            "misc": 0,
+            "total": 0
+          }
+        },
+        "threshold": {
+          "total": 0
+        }
+      },
+      "optionalRules": {
+        "permanentDamage": false
+      },
+      "injuries": [],
+      "customSkills": {
+        "professions": [],
+        "crafts": [],
+        "performs": []
+      },
+      "skills": {
+        "acrobatics": {
+          "keyAbility": "dex",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": true,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "appraise": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "bluff": {
+          "keyAbility": "cha",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "challenge": {
+          "keyAbility": "cha",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "climb": {
+          "keyAbility": "str",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": true,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "concentration": {
+          "keyAbility": "con",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "decipherScript": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "diplomacy": {
+          "keyAbility": "cha",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "disableDevice": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "disguise": {
+          "keyAbility": "cha",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "forgery": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "gatherInformation": {
+          "keyAbility": "cha",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "handleAnimal": {
+          "keyAbility": "cha",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "heal": {
+          "keyAbility": "wis",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "intimidate": {
+          "keyAbility": "cha",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "knowledgeArcana": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "knowledgeGeography": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "knowledgeHistory": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "knowledgeLocal": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "knowledgeNobility": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "knowledgeReligion": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "knowledgeRumours": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "knowledgeTactics": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "perception": {
+          "keyAbility": "wis",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "ride": {
+          "keyAbility": "dex",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "search": {
+          "keyAbility": "int",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "senseMotive": {
+          "keyAbility": "wis",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "sharpen": {
+          "keyAbility": "wis",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": true,
+          "total": 0
+        },
+        "sleightOfHand": {
+          "keyAbility": "dex",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": true,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "stealth": {
+          "keyAbility": "dex",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": true,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "survival": {
+          "keyAbility": "wis",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "swim": {
+          "keyAbility": "str",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        },
+        "useRope": {
+          "keyAbility": "dex",
+          "ranks": 0,
+          "misc": 0,
+          "armorCheck": false,
+          "trainedOnly": false,
+          "total": 0
+        }
+      },
+      "classes": [
+        {
+          "classKey": "soldier",
+          "level": 1,
+          "hpRolled": 0,
+          "favored": false,
+          "notes": ""
+        }
+      ]
+    }
+  },
+  "Item": {
+    "types": [
+      "weapon",
+      "armor",
+      "gear"
+    ],
+    "weapon": {
+      "description": "",
+      "category": "",
+      "attackType": "melee",
+      "damage": "1d6",
+      "damageType": "",
+      "qualities": "",
+      "handedness": "one",
+      "rangeIncrement": 0,
+      "finesse": false,
+      "attackBonus": 0,
+      "equipped": true,
+      "weight": 0,
+      "cost": ""
+    },
+    "armor": {
+      "description": "",
+      "category": "",
+      "damageReduction": 0,
+      "armorPenalty": 0,
+      "equipped": true,
+      "weight": 0,
+      "cost": ""
+    },
+    "gear": {
+      "description": "",
+      "quantity": 1,
+      "weight": 0,
+      "cost": "",
+      "equipped": false
+    }
+  }
+}
